@@ -1,0 +1,5 @@
+app:
+  filePath: src/main/resources/test.txt
+  columnValue : 1
+server:
+  port: 9000
