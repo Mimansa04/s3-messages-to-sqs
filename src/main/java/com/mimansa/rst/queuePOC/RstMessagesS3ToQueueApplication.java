@@ -10,13 +10,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @RequiredArgsConstructor
 @SpringBootApplication
-public class RstMessagesS3ToQueueApplication implements CommandLineRunner {
+public class RstMessagesS3ToQueueApplication {
 
 	private final InitiateAppService initiateAppService;
 
-	@Override
-	public void run(String... args) {
-		initiateAppService.startService();
+
+	public Supplier<List<String>> startApp() {
+		return () -> initiateAppService.startService();
 	}
 
 	public static void main(String[] args) {
