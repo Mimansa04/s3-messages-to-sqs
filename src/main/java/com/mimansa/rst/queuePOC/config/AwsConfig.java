@@ -14,8 +14,8 @@ public class AwsConfig {
 
     private AWSCredentials credentials() {
         AWSCredentials credentials = new BasicAWSCredentials(
-                "=",
-                "="
+                "",
+                ""
         );
         return credentials;
     }

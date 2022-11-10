@@ -1,5 +1,6 @@
 app:
-  filePath: src/main/resources/test.txt
-  columnValue : 1
+  bucketName: mytestbucketfors3messagestosqs41628192
+  keyValue: test.txt
+  columnValue: 1
 server:
   port: 9000

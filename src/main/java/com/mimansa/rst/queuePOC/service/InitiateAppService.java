@@ -1,12 +1,10 @@
 package com.mimansa.rst.queuePOC.service;
 
 import com.mimansa.rst.queuePOC.config.FileConfig;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class InitiateAppService {
 
    // @NonNull
@@ -14,12 +12,17 @@ public class InitiateAppService {
     private final AlertFileService alertFileService;
     private final PublishService publishService;
 
+    @Autowired
+    public InitiateAppService(FileConfig fileConfig, AlertFileService alertFileService, PublishService publishService) {
+        this.fileConfig = fileConfig;
+        this.alertFileService = alertFileService;
+        this.publishService = publishService;
+    }
+
     public void startService(){
 
-        System.out.println(fileConfig.getColumnValue());
-        System.out.println(fileConfig.getFilePath());
 
-        alertFileService.fileToList( fileConfig.getFilePath(), fileConfig.getColumnValue()).forEach(publishService::publish);
+        alertFileService.fileToList( fileConfig.getBucketName(), fileConfig.getKeyValue(),fileConfig.getColumnValue()).forEach(publishService::publish);
 
 
     }
