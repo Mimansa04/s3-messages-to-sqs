@@ -1,5 +1,6 @@
 package com.mimansa.rst.queuePOC;
 
+import com.amazonaws.services.s3.model.S3Event;
 import com.mimansa.rst.queuePOC.service.InitiateAppService;
 
 
@@ -7,10 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 
-@SpringBootApplication
+
+@SpringBootApplication(
+		exclude = {
+				org.springframework.cloud.aws.autoconfigure.context.ContextInstanceDataAutoConfiguration.class,
+				org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration.class,
+				org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration.class
+		}
+)
 public class RstMessagesS3ToQueueApplication {
 
 	private final InitiateAppService initiateAppService;
@@ -28,10 +38,11 @@ public class RstMessagesS3ToQueueApplication {
 
 
 	@Bean
-	public Supplier<String> invoke(){
+	public Function<String,String> invoke(){
 		initiateAppService.startService();
-		return () -> null;
+		return (String) -> null;
 	}
+
 
 //	@Bean
 //	public Consumer<S3Event> invoke(){

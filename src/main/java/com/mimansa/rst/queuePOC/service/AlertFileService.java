@@ -2,6 +2,7 @@ package com.mimansa.rst.queuePOC.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -14,6 +15,7 @@ public class AlertFileService {
 
     private final AmazonS3 s3Client;
 
+    @Autowired
     public AlertFileService(AmazonS3 s3Client) {
         this.s3Client = s3Client;
     }
@@ -36,7 +38,7 @@ public class AlertFileService {
             while((st = br.readLine())!=null){
                 String[] tempLine = st.split(" ");
                 alertIDs.add(tempLine[columnValue]);
-                System.out.println(st);
+                System.out.println(tempLine[columnValue]);
             }
             br.close();
             return alertIDs;
